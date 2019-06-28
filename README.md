@@ -13,27 +13,22 @@ In this repository, I build a simple NFV platform using two Docker containers, i
 
 * `ovs_reset.sh`: this file is clean the stale version of OVS.
 
----
-**Note**
 
-Need to change the generation of `conf.db`, if you are not using `OVS-2.11.1`.
-
----
+> **_Note:_**
+> 
+> Need to change the generation of `conf.db`, if you are not using `OVS-2.11.1`.
 
 * `ovs_start.h`: this file starts OVS with DPDK setting. The prerequisites are:
    * Compile `DPDK` code
    * Compile `OVS` code with `--with-dpdk=$RTE_SDK/$RTE_TARGET`
 
----
-**Note**
-
-`other_config:dpdk-init=true` is a must. 
-
-`dpdk-lcore-mask=0x03` may be in another form if using a old release of `OVS`.
-
-`other_config:pmd-cpu-mask=0x0c0c` are recommended, because this is closely related to the throughput between two containers.
-
----
+> **_Note:_**
+>
+> `other_config:dpdk-init=true` is a must. 
+> 
+> `dpdk-lcore-mask=0x03` may be in another form if using a old release of `OVS`.
+> 
+> `other_config:pmd-cpu-mask=0x0c0c` are recommended, because this is closely related to the throughput between two containers.
 
 * `port_setup.sh`: this file sets up the ports and routes.
 
@@ -45,11 +40,9 @@ Need to change the generation of `conf.db`, if you are not using `OVS-2.11.1`.
 
 * folder `pktgen-docker`: container build files for `pktgen` docker.
 
----
-**Note**
 
-The code of `pktgen-3.6.6` has changed. So I upload the folder not zip file. If you use the original code of `pktgen-3.6.6`, you will have a strange error about the socket of lcore.
-
----
+> **_Note:_**
+> 
+> The code of `pktgen-3.6.6` has changed. So I upload the folder not zip file. If you use the original code of `pktgen-3.6.6`, you will have a strange error about the socket of lcore.
 
 * folder `testpmd-docker`: container build files for `testpmd` docker.
