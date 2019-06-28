@@ -46,3 +46,27 @@ In this repository, I build a simple NFV platform using two Docker containers, i
 > The code of `pktgen-3.6.6` has changed. So I upload the folder not zip file. If you use the original code of `pktgen-3.6.6`, you will have a strange error about the socket of lcore.
 
 * folder `testpmd-docker`: container build files for `testpmd` docker.
+
+
+## Setting of Hugepages
+
+When using DPDK, we need to config the hugepages. For this experiment, I create 4 `1GB` hugepages, and config them in the `grub` files:
+
+* Edit `/etc/default/grub`
+
+```
+GRUB_DEFAULT=0
+GRUB_HIDDEN_TIMEOUT=0
+GRUB_HIDDEN_TIMEOUT_QUIET=true
+GRUB_TIMEOUT=10
+GRUB_DISTRIBUTOR=`lsb_release -i -s 2> /dev/null || echo Debian`
+GRUB_CMDLINE_LINUX_DEFAULT="default_hugepagesz=1G hugepagesz=1G hugepages=4 quiet splash"
+GRUB_CMDLINE_LINUX=""
+```
+
+* Mount it two `vdev`, append to `/etc/fstab`:
+
+```
+nodev /mnt/huge_pktgen hugetlbfs pagesize=1G,size=1G 0 0
+nodev /mnt/huge_dpdk hugetlbfs pagesize=1G,size=1G 0 0
+```
